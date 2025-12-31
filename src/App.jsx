@@ -32,6 +32,10 @@ function App() {
     )
   }
 
+  const deleteTask = (id) => {
+    setTasks(prev => prev.filter(task => task.id !== id))
+  }
+
   return (
 
     <div className='text-center'>
@@ -50,21 +54,26 @@ function App() {
       
       {/* Div for control of render list, checkbox and deleteTask*/}
       <div className=' max-w-[200px] mx-auto rounded '>
-        <ul >
+        <ul>
           {tasks.map(task => (
             <li 
-            className='my-[10px]' 
+            className=' flex my-[10px] ' 
             key={task.id}
             >
               <input
-                className='mx-[5px]' 
+                className='mx-[15px]' 
                 type='checkbox' 
                 checked={task.done} 
                 onChange={() => toggleTask(task.id)}
               />
-              <span className={task.done ? "line-through" : ""}>
+              <span className={task.done ? "line-through" : ""} >
                 {task.text}
               </span>
+
+              <button 
+                className='ml-[20px]'
+                onClick={()=> deleteTask(task.id)}
+              >Eliminar</button>
 
             </li>
           ))}
