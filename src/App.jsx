@@ -19,7 +19,8 @@ function App() {
     const task = {
       id: Date.now(),
       text: newTask,
-      done: false 
+      done: false,
+      edit_mode: false
       }
 
     setTasks(prev => [...prev,task])
@@ -42,9 +43,26 @@ function App() {
     if(filter === "done") return task.done
     if(filter === "pending") return !task.done
     return true
-  }
+  })
+
+  const toggleButton = (id) => {
     
-  )
+    setTasks(prev => 
+      prev.map(task =>
+        task.id === id ? {...task, edit_mode: !task.edit_mode} : task
+      )
+    )
+
+  }
+
+  const editTask = (id, task_edited) => {
+    setTasks(prev =>
+      prev.map(task => 
+        task.id === id ? {...task, text: task_edited} : task
+      )
+    )
+  }
+  
 
   return (
   <div className="min-h-screen bg-neutral-900 text-white px-4 py-6">
@@ -109,7 +127,7 @@ function App() {
             key={task.id}
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-neutral-800 rounded-lg p-3"
           >
-            <label className="flex items-center gap-3">
+            <label className="flex items-center gap-5">
               <input
                 type="checkbox"
                 checked={task.done}
@@ -117,16 +135,24 @@ function App() {
                 className="w-5 h-5"
               />
               <span className={task.done ? "line-through opacity-60" : ""}>
-                {task.text}
+                {!task.edit_mode ? task.text : <input className='bg-[black] rounded ' value={task.text} onChange={e => editTask(task.id, e.target.value)}></input> }
               </span>
             </label>
+            <div className='flex gap-[10px]'>
+              <button
+              id='edit-btn'
+              onClick={() => toggleButton(task.id)}
+              
+              className='bg-red-600 hover:bg-red-700 transition rounded-lg px-4 py-2 text-sm'
+              > {task.edit_mode? "Aceptar" : "Editar"}</button>
 
-            <button
-              onClick={() => deleteTask(task.id)}
-              className="bg-red-600 hover:bg-red-700 transition rounded-lg px-4 py-2 text-sm"
-            >
-              Eliminar
-            </button>
+              <button
+                onClick={() => deleteTask(task.id)}
+                className="bg-red-600 hover:bg-red-700 transition rounded-lg px-4 py-2 text-sm"
+              >
+                Eliminar
+              </button>
+            </div>
           </li>
         ))}
       </ul>
