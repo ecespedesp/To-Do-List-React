@@ -4,7 +4,11 @@ Simple task manager built with **React**, **Vite** and **Tailwind CSS**.
 
 This project was created for learning purposes, focusing on React fundamentals, controlled inputs, state management, and Git workflow using feature branches.
 
+Live demo: https://to-do-list-react-theta-five.vercel.app/
+
+
 ---
+
 
 ## Features
 
