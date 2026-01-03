@@ -47,9 +47,8 @@ npm run dev
 
 ## Project Structure
 
-src/
- ├── App.jsx
- └── main.jsx
+src/App.jsx
+src/main.jsx
 
 ---
 
